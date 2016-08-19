@@ -3,6 +3,14 @@ from turtle import *
 def set_home_position():
     setpos(0,0)
 
+def move_to_line_beggining():
+    setx(0)
+
+def move_to_upper_line(current_side):
+    left(90)
+    forward(current_side*2)
+    left(270)
+
 def draw_square(side, fill=True):
     if fill:
         begin_fill()
@@ -18,37 +26,31 @@ def draw_outer_square(side):
     draw_square(side, fill=False)
 
 def move_to_next_square(current_level, current_side, current_square):
-    if current_square == 0:
+    if current_square == 1:
         forward(current_side)
         left(90)
         forward(current_side)
         left(270)
-    elif current_square >= 1 and current_square <= 3:
-        if current_square == 3:
-            left(90)
+    else:
         forward(current_side*3)
-        if current_square == 3:
-            left(270)
-    elif current_square == 4: 
-        left(90)
-        forward(current_side*3)
-        left(270)
-    elif current_square == 5 or current_square == 6:
-        left(180)
-        forward(current_side*3)
-        left(180)
-    elif current_square == 7:
-        left(270)
-        forward(current_side*3)
-        left(90)
 
-def draw_level(current_level, outer_square_side):
-    square_count = 8**(current_level-1) 
-    current_side = outer_square_side/(3**current_level)
-
-    for current_square in range(0, square_count):
+def draw_square_line(current_level, current_side, current_line):
+    for current_square in current_line: 
         move_to_next_square(current_level, current_side, current_square)
         draw_square(current_side)
+
+def draw_level(current_level, outer_square_side):
+    current_side = outer_square_side/(3**current_level)
+    square_count = 9**(current_level-1)
+    line_number = 3**(current_level-1)
+    level_lines = ([range(1, (square_count//line_number)+1)
+                   for line in range(1, line_number+1)] or
+                   [(1,2)])
+
+    for line_index, current_line in enumerate(level_lines):
+        draw_square_line(current_level, current_side, current_line)
+        move_to_line_beggining()
+        move_to_upper_line(current_side)
 
 def main():
     levels = 2
