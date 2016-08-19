@@ -53,7 +53,7 @@ def draw_level(current_level, outer_square_side):
         move_to_upper_line(current_side)
 
 def main():
-    levels = 2
+    levels = 4
     outer_square_side = 300
 
     draw_outer_square(outer_square_side)
