@@ -1,5 +1,8 @@
 from turtle import *
 
+def set_home_position():
+    setpos(0,0)
+
 def draw_square(side, fill=True):
     if fill:
         begin_fill()
@@ -56,7 +59,7 @@ def main():
 
     for current_level in range(1, levels+1):
         draw_level(current_level, outer_square_side)
-        setpos(home_point)
+        set_home_position()
 
     exitonclick()
 
