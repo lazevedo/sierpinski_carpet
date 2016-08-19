@@ -14,7 +14,7 @@ def draw_square(side, fill=True):
 def draw_outer_square(side):
     draw_square(side, fill=False)
 
-def move_to_next_point(current_level, current_side, current_square):
+def move_to_next_square(current_level, current_side, current_square):
     if current_square == 0:
         forward(current_side)
         left(90)
@@ -40,12 +40,11 @@ def move_to_next_point(current_level, current_side, current_square):
         left(90)
 
 def draw_level(current_level, outer_square_side):
-    square_count = ((current_level-1)*9) + 1
+    square_count = 8**(current_level-1) 
     current_side = outer_square_side/(3**current_level)
-    print(current_side)
 
     for current_square in range(0, square_count):
-        move_to_next_point(current_level, current_side, current_square)
+        move_to_next_square(current_level, current_side, current_square)
         draw_square(current_side)
 
 def main():
